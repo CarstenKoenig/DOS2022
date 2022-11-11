@@ -1,0 +1,84 @@
+cabal-version:      2.4
+name:               TodoListApi
+version:            0.1.0.0
+synopsis:           das API Backend für die Demo-TodoList-App
+
+-- A longer description of the package.
+-- description:
+homepage:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+license:            MIT
+license-file:       LICENSE
+author:             Carsten König
+maintainer:         Carsten.Koenig@hotmail.de
+
+-- A copyright notice.
+-- copyright:
+category:           Web
+extra-source-files: CHANGELOG.md
+
+common deps
+  build-depends: 
+    base ^>= 4.16.3.0,
+    aeson ^>= 2.1.1.0,
+    mtl ^>= 2.2.2,
+    text ^>= 2.0.1,
+    time ^>= 1.11.1.1,
+    unordered-containers ^>= 0.2.19.1
+  ghc-options: 
+    -Wall
+
+
+library
+    import:           deps
+    exposed-modules:  Lib.App,
+                      Lib.Core.Task,
+                      Lib.Db,
+                      Lib.Effects.Tasks
+                      
+
+    -- Modules included in this library but not exported.
+    other-modules:    Lib.App.Env,
+                      Lib.App.Monad,
+                      Lib.Db.DbConnection,
+                      Lib.Db.Functions,
+                      Lib.Db.Schema,
+                      Lib.Db.Task
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:    base ^>=4.16.3.0,
+                      sqlite-simple ^>= 0.4.18.2,
+    hs-source-dirs:   lib
+    default-language: Haskell2010
+
+executable TodoListApi
+    import:           deps
+    main-is:          Main.hs
+
+    -- Modules included in this executable, other than Main.
+    other-modules:
+        Api
+        App
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:
+        servant ^>= 0.19.1,
+        servant-server ^>= 0.19.2,
+        sqlite-simple ^>= 0.4.18.2,
+        wai-cors ^>= 0.2.7,
+        warp ^>= 3.3.23,
+        TodoListApi
+
+    hs-source-dirs:   app
+    default-language: Haskell2010
+
+test-suite TodoListApi-test
+    import:           deps
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          MyLibTest.hs
