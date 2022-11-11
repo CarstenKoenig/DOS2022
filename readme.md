@@ -1,6 +1,6 @@
 # Haskell Workshop
 
-Material für den DeveloperOpenspace 2018 in Leipzig.
+Materialien zu meinem Haskell/FP Workshop für den DeveloperOpenSpace.
 
 ## Getting started
 
